@@ -6,10 +6,10 @@ const themes = {
 };
 
 const divisions = [
-  { name: "Pejji", desc: "Web agency for Nigerian SMEs", icon: "🌍", accent: "#4ECDC4", url: "#" },
-  { name: "Securva", desc: "Cybersecurity SaaS", icon: "🛡️", accent: "#7B68EE", url: "#" },
-  { name: "Utility Vault", desc: "Digital products on Gumroad", icon: "⚡", accent: "#FFB347", url: "#" },
-  { name: "CyberArmor", desc: "Web3 security education", icon: "🔐", accent: "#FF6B6B", url: "#" },
+  { name: "Pejji", desc: "Security-first web agency for Nigerian SMEs", icon: "🌍", accent: "#4ECDC4", url: "https://pejji.com" },
+  { name: "Securva", desc: "Cybersecurity scanning & NDPA compliance SaaS", icon: "🛡️", accent: "#7B68EE", url: "https://securva.net" },
+  { name: "Utility Vault", desc: "Templates, SOPs, and digital products", icon: "⚡", accent: "#FFB347", url: "https://utilityvault.gumroad.com" },
+  { name: "CyberArmor", desc: "Web3 security research & smart contract auditing", icon: "🔐", accent: "#FF6B6B", url: "#" },
 ];
 
 export default function BlessedOpsHub() {
@@ -57,18 +57,19 @@ export default function BlessedOpsHub() {
             {divisions.map((d, i) => {
               const [h, setH] = useState(false);
               return (
-                <div key={d.name} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} style={{
+                <a key={d.name} href={d.url} target={d.url !== "#" ? "_blank" : undefined} rel={d.url !== "#" ? "noopener noreferrer" : undefined} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} style={{
                   background: T.card, border: `1px solid ${h ? d.accent + "50" : T.border}`,
-                  borderRadius: 14, padding: "24px 18px", cursor: "default",
+                  borderRadius: 14, padding: "24px 18px", cursor: d.url !== "#" ? "pointer" : "default",
                   opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(20px)",
                   transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.9 + i * 0.08}s`,
-                  position: "relative", overflow: "hidden",
+                  position: "relative", overflow: "hidden", textDecoration: "none", display: "block",
                 }}>
                   <div style={{ position: "absolute", top: 0, left: "15%", width: h ? "70%" : "0%", height: 2, background: `linear-gradient(90deg, transparent, ${d.accent}, transparent)`, transition: "width 0.4s ease" }} />
                   <div style={{ fontSize: 28, marginBottom: 10 }}>{d.icon}</div>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 700, color: T.text, margin: "0 0 4px" }}>{d.name}</h3>
                   <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: d.accent, letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 600, margin: 0 }}>{d.desc}</p>
-                </div>
+                  {d.url === "#" && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: T.gray, letterSpacing: 1, marginTop: 8, display: "block" }}>COMING SOON</span>}
+                </a>
               );
             })}
           </div>
